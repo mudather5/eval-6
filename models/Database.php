@@ -7,7 +7,7 @@ class Database
 {
 
 	const HOST = "localhost",
-		  DBNAME = "labrary",
+		  DBNAME = "library",
 		  LOGIN = "root",
 		  PWD = "root";
 

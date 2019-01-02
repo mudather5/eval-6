@@ -22,7 +22,7 @@ if(isset($_POST['submit'])){
     $firstname = htmlspecialchars($_POST['firstname']);
     $email = htmlspecialchars($_POST['email']);
     $password= htmlspecialchars($_POST['password']);
-    //  $user = new User();
+    $user = new User();
 
      if($count == 1)
      {
@@ -30,7 +30,7 @@ if(isset($_POST['submit'])){
        echo "it's already taken";
      }else{
 
-         $manager->add($user);
+          $manager->add($user);
 
      }
     // $user1 = $user->check($_POST, array(
