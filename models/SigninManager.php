@@ -4,7 +4,7 @@ declare(strict_types = 1);
 /**
  *  Classe permettant de gérer les opérations en base de données concernant les objets Account
  */
-class UserManager
+class SigninManager
 {
 
 	private $_db;
@@ -46,14 +46,12 @@ class UserManager
 	 *
 	 * @param Account $account
 	 */
-	public function add(User $user)
+	public function add(Signin $signin)
 	{
 		// var_dump($user);die;
-		$query = $this->getDb()->prepare('INSERT INTO users(first_name, email, password, password_1) VALUES (:first_name, :email, :password, :password_1)');
-		$query->bindValue("first_name", $user->getFirst_name(), PDO::PARAM_STR);
+		$query = $this->getDb()->prepare('INSERT INTO signin(email, password) VALUES (:email, :password)');
 		$query->bindValue("email", $user->getEmail(), PDO::PARAM_STR);
 		$query->bindValue("password", $user->getPassword(), PDO::PARAM_STR);
-		$query->bindValue("password_1", $user->getPassword_1(), PDO::PARAM_STR);
 		$query->execute();
 	}
 
@@ -61,22 +59,22 @@ class UserManager
 	 * Get all accounts
 	 *
 	 */
-	public function getUsers()
+	public function getSignins()
 	{
 
-		$arrayOfUsers = [];
-		$query = $this->getDb()->query('SELECT * FROM users');
+		$arrayOfSignins = [];
+		$query = $this->getDb()->query('SELECT * FROM signin');
 
 		// On récupère un tableau contenant plusieurs tableaux associatifs
-		$dataUsers = $query->fetchAll(PDO::FETCH_ASSOC);
+		$dataSignin = $query->fetchAll(PDO::FETCH_ASSOC);
 
 		// A chaque tour de boucle, on récupère un tableau associatif concernant un seul compte
-		foreach ($dataUsers as $dataUser) 
+		foreach ($dataSignins as $dataSignin) 
 		{
 			// On crée un nouvel objet grâce au tableau associatif, qu'on stocke dans $arrayOfAccounts
-			$arrayOfUsers[] = new User($dataUser);
+			$arrayOfSignins[] = new User($dataSignin);
 		}
-		return $arrayOfUsers;
+		return $arrayOfSignins;
 	}
 
 	public function checkIfExist($email)
@@ -103,15 +101,15 @@ class UserManager
 	 * @param integer $id
 	 * @return Account
 	 */
-	public function getUser(int $id)
+	public function getSignin(int $id)
 	{
 		$id = (int) $id;
-		$query = $this->getDb()->prepare('SELECT * FROM users WHERE id = :id');
+		$query = $this->getDb()->prepare('SELECT * FROM signin WHERE id = :id');
 		$query->bindValue("id", $id, PDO::PARAM_INT);
 		$query->execute();
 
-		$dataUser = $query->fetch(PDO::FETCH_ASSOC);
-		return new User($dataUser);
+		$dataSignin = $query->fetch(PDO::FETCH_ASSOC);
+		return new Signin($dataSignin);
 	}
 
 

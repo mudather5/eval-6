@@ -10,11 +10,76 @@
    Base styles: opinionated defaults
    ========================================================================== */
 
-html {
+/* html {
     color: #222;
     font-size: 1em;
     line-height: 1.4;
 }
+
+
+.button{
+
+    margin-top: 5%;
+} */
+
+.add{
+
+    margin-top: 10%;
+}
+
+.btn{
+    margin-left: 15px;
+}
+
+.user{
+    margin-top: 5%;
+}
+
+.card{
+	border: 2px solid salmon;
+	margin: 15px;
+	border-radius: 5px;
+}
+
+.card-container{
+	max-width: 270px;
+    margin: auto;
+}
+
+.card-content{
+	padding: 10px;
+}
+
+.card form{
+	margin: 10px 0;
+}
+
+
+/* img{
+    margin-top: 10px;
+} */
+
+h5{
+    display: inline-block;
+}
+
+.red{
+    background-image: url(../img/Non-Fiction-4.jpg);
+}
+
+@media only screen and (max-width: 1000px) {
+
+        .user{
+        display: none;
+    }
+
+.button{
+    text-align: center;
+}
+}
+
+
+
 
 /*
  * Remove text-shadow in selection highlight:
@@ -127,8 +192,6 @@ textarea {
 @media (min-width: 1200px) {
 
 }
-
-
 
 
 

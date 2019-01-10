@@ -1,9 +1,10 @@
 <?php
 class User{
       protected $id,
-                $firstname,
+                $first_name,
                 $email,
-                $password;
+                $password,
+                $password_1;
 
 
     public function __construct(array $array)
@@ -42,9 +43,9 @@ class User{
                 /**
                  * Get the value of firstname
                  */ 
-                public function getFirstname()
+                public function getFirst_name()
                 {
-                                return $this->firstname;
+                                return $this->first_name;
                 }
 
                 /**
@@ -80,9 +81,9 @@ class User{
                  *
                  * @return  self
                  */ 
-                public function setFirstname($firstname)
+                public function setFirst_name($first_name)
                 {
-                                $this->firstname = $firstname;
+                                $this->first_name = $first_name;
 
                                 return $this;
                 }
@@ -107,6 +108,26 @@ class User{
                 public function setPassword($password)
                 {
                                 $this->password = $password;
+
+                                return $this;
+                }
+
+                /**
+                 * Get the value of password1
+                 */ 
+                public function getPassword_1()
+                {
+                                return $this->password_1;
+                }
+
+                /**
+                 * Set the value of password1
+                 *
+                 * @return  self
+                 */ 
+                public function setPassword_1($password_1)
+                {
+                                $this->password_1 = $password_1;
 
                                 return $this;
                 }
