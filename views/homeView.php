@@ -56,7 +56,7 @@
                             <div class="red">
                                 <div class="card-content">
                                 <a class="simple-ajax-popup-align-top"  href="../assets/img/<?= $book->getImage();?>" title='Caption. Can be aligned to any side and contain any HTML.'>
-                                    <img style='width: 130px; height: 160px' src="../assets/img/<?= $book->getImage(); ?>" alt="the book" onmouseover="photoOver(this)" onmouseout="photoOut(this)">
+                                    <img style='width: 130px; height: 160px' src="../assets/img/<?= $book->getImage(); ?>" alt="the book">
                                 </a>
                                     <p class="title"><?php echo $book->getTitle().'<br>';//display the title?><a href="../controllers/bookdetails.php?index=<?php echo $book->getId(); ?>">Click for details</a></p>
                                 </div>

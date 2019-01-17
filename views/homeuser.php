@@ -36,7 +36,7 @@
                               <p> Number of books return :<?php echo " ".$user->getNb_book();//display Nb_book?></p>
                             </div>
                             <div class="d-flex justify-content-center">
-                              <p>Details :<a href="details-user.php?index=<?php echo " ".$user->getId();?>">Click to edit</a></p>
+                              <p>Details :<a href="details-user.php?index=<?php echo $user->getId();?>">Click to show the details</a></p>
                             </div>
                   
                         </div>

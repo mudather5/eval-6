@@ -27,10 +27,7 @@
     margin-top: 10%;
 }
 
-.red:hover{ 
-    background-color:black;
-    color:rgb(77, 14, 14);
-    }
+
 .update button{
     margin: 3px;
 }

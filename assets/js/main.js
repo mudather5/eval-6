@@ -83,3 +83,24 @@ function mOver(obj) {
   function PhotoOut(obj) {
     obj.innerHTML = "Add books "
   }
+
+  
+  $(document).ready(function() {
+	$('img').on({
+		mouseover:function(){
+			$(this).css({
+				"height": 200,
+				"width": 250
+
+			});
+		},
+		mouseout:function(){
+			$(this).css({
+				"height": 160,
+				"width": 130
+
+			});
+		},
+	});
+
+  });
