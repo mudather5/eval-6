@@ -5,46 +5,50 @@
 <div class="container">
 
     <div class="justify-content-center mt-2">
+ <!--begin of the form to add a book-->
 
     <form action="../controllers/book.php" method="post">
       <div class="form-group">
         <h3> To add a book </h3>
-        <label for="exampleInputEmail1">Title :</label>
-        <input type="text" name="title" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Title">
+        <label>Title :</label>
+        <input type="text" name="title" class="form-control"  value="Title">
       </div>
       <div class="form-group">
-        <label for="exampleInputPassword1">Author :</label>
-        <input type="text" name="author" class="form-control" id="exampleInputPassword1" placeholder="Author">
+        <label>Author :</label>
+        <input type="text" name="author" class="form-control"  value="Author">
       </div>
-      <label for="exampleInputEmail1">Date of publish :</label>
-        <input type="date" name="date" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Date of publish">
+      <label>Date of publish :</label>
+        <input type="date" name="date" class="form-control"  value="Date of publish">
     
       <div class="form-group">
-        <label for="exampleInputPassword1">Catogry :</label>
-        <input type="text" name="catogry" class="form-control" id="exampleInputcatogry" placeholder="Author">
+        <label for="sel1">Select category:</label>
+        <select class="form-control" id="sel1" name="category">
+          <option>Choose category</option>
+          <option>Science</option>
+          <option>History</option>
+          <option>True crime</option>
+          <option>Horror</option>
+        </select>
       </div>
       <div class="form-group">
-        <label for="exampleInputEmail1">Summary :</label>
-          <input type="text" name="summary" class="form-control" id="exampleInputsummary" aria-describedby="emailHelp" placeholder="Summary">
+        <label>Summary :</label>
+          <input type="text" name="summary" class="form-control" value="Summary">
       </div>
-      <!--<div class="form-group">
-        <label for="exampleInputPassword1">Image :</label>
-        <input type="text" name="image" class="form-control" id="exampleInputImage" placeholder="Image">
-      </div>
-    
       <div class="form-group">
-        <label for="exampleInputPassword1">Alt :</label>
-        <input type="text" name="alt" class="form-control" id="exampleInputAlt" placeholder="Alt">
-      </div>-->
-    
-    
-    
+        <label>Image :</label>
+        <input type="file" name="image" class="form-control">
+      </div>
       <button type="submit" name="add" class="btn btn-danger">Add book</button>
     </form>    
    
+ <!--the end of the form to add a book-->
 
 
     
     
     </div>
 </div>
+
+<?php
+  require "includes/footer.php";
+?>

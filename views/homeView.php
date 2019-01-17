@@ -7,71 +7,73 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-5 d-sm-hidden mt-2 user">
-                    <img src="../assets/img/user-icon.png">
+                    <img src="../assets/img/user-icon.png" width="100" height="70" alt="user photo">
                 </div>
                 <div class="col-lg-5 mt-4 button">
-                    <p class="text-start"><a href="../controllers/book.php" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Add book</a></p>
                 </div>
-        </div>
+            </div>
+        </div>    
 
 
         <div class="container">
             <div class="row">
                 <div class="col-lg-4 col-sm-5 user">
-                <div class="d-flex justify-content-start">
-                       <h5>Welcome</h5>
+                    <div class="d-flex justify-content-start">
+                       
+                       <h6>Welcome</h6>
+                       
                     </div>
                     <div class="d-flex justify-content-start">
-                       <h5><a href="#">Users</a></h5>
+                       <h6><a href="../controllers/homeuser.php">Users</a></h6>
                     </div>
                     <div class="d-flex justify-content-start">
         
-                       <h5><a href="#">Diconnect</a></h5>
+                       <h6><a href="index.php">Log out</a></h6>
                     </div>
                 </div>
-                <div class="col-lg-4">
+            </div>
+    
+               <div class="d-flex justify-content-center">
+                    <a href="../controllers/book.php" class="btn btn-primary btn-lg active" role="button" aria-pressed="true" onmouseover="mOver(this)" onmouseout="mOut(this)">Add book</a>
+
+                </div> 
                     <div class="d-flex justify-content-center">
-                        <h3>Lists of books</h3>
-                    </div>
-                    <div class="d-flex justify-content-start">
-                    </div>
+                       <h3> Lists of books</h3>
+                    </div>    
                     
                     <div class="card-container">
                         <div class="container">
+                            <div class="row book">
                 
                         
                 
                             <?php 
                         
                                 foreach ($books as $book)     
-                                { 
+                                { //display all the book 
                 
                                 ?>
-                        <div class="card red">
-                            <div class="card-content">  
-                                <p><?php echo "Title: ".$book->getTitle().'<br>';?></p>
-                                <p><?php echo "Author: ".$book->getAuthor().'<br>';?></p>
-                                <p><?php echo "Date of publiche: ".$book->getDate().'<br>';?></p>
-                                <p><?php echo "Catogery: ".$book->getCatogry().'<br>';?></p>
-                                <p><?php echo "Summary: ".$book->getSummary().'<br>';?></p>
-                                <p><?php echo "Image: ".$book->getImage().'<br>';?></p>
-                
+                            <div class="red">
+                                <div class="card-content">
+                                <a class="simple-ajax-popup-align-top"  href="../assets/img/<?= $book->getImage();?>" title='Caption. Can be aligned to any side and contain any HTML.'>
+                                    <img style='width: 130px; height: 160px' src="../assets/img/<?= $book->getImage(); ?>" alt="the book" onmouseover="photoOver(this)" onmouseout="photoOut(this)">
+                                </a>
+                                    <p class="title"><?php echo $book->getTitle().'<br>';//display the title?><a href="../controllers/bookdetails.php?index=<?php echo $book->getId(); ?>">Click for details</a></p>
+                                </div>
                             </div>
-                        </div>
-                                <?php
+                                <?php //the end of the loop
                 
-                                }
+                                    }
                                 
                                 ?>
-                            
+                            </div>
+                        </div>
                     </div>
-                    </div>
-                </div>
-                </div>
-                </div>
-            </div>
                 
-</div>
-    </div>   
-
+        </div>  
+    
+    
+    <?php
+        include("includes/footer.php");
+    ?>
 

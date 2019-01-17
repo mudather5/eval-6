@@ -2,7 +2,7 @@
 declare(strict_types = 1);
 
 /**
- *  Classe permettant de gérer les opérations en base de données concernant les objets Account
+ *  Class to manage database operations for Account objects
  */
 class User_listeManager
 {
@@ -48,11 +48,13 @@ class User_listeManager
 	 */
 	public function add(User_liste $user_liste)
 	{
-		$query = $this->getDb()->prepare('INSERT INTO users_listes(last_name, first_name, code, nb_book) VALUES (:last_name, :first_name, :code, :nb_book)');
+		$query = $this->getDb()->prepare('INSERT INTO users_listes(last_name, first_name, code, nb_book, lists_books) VALUES (:last_name, :first_name, :code, :nb_book, :lists_books)');
 		$query->bindValue("last_name", $user_liste->getLast_name(), PDO::PARAM_STR);
 		$query->bindValue("first_name", $user_liste->getFirst_name(), PDO::PARAM_STR);
 		$query->bindValue("code", $user_liste->getCode(), PDO::PARAM_STR);
 		$query->bindValue("nb_book", $user_liste->getNb_book(), PDO::PARAM_INT);
+		$query->bindValue("lists_books", $user_liste->getLists_books(), PDO::PARAM_INT);
+
 		
 		$query->execute();
 	}
@@ -67,13 +69,13 @@ class User_listeManager
 		$arrayOfUsers = [];
 		$query = $this->getDb()->query('SELECT * FROM `users_listes`');
 
-		// On récupère un tableau contenant plusieurs tableaux associatifs
+		// We retrieve a table containing several associative arrays
 		$dataUsers = $query->fetchAll(PDO::FETCH_ASSOC);
 
-		// A chaque tour de boucle, on récupère un tableau associatif concernant un seul compte
+		// At each loop turn, we get an associative array for a single account
 		foreach ($dataUsers as $dataUser) 
 		{
-			// On crée un nouvel objet grâce au tableau associatif, qu'on stocke dans $arrayOfAccounts
+			// We create a new object thanks to the associative array, which is stored in $ arrayOfAccounts
 			$arrayOfUsers[] = new User_liste($dataUser);
 		}
 		return $arrayOfUsers;
@@ -81,12 +83,12 @@ class User_listeManager
 
 
 	/**
-	 * Get an account by id
+	 * Get an user by id
 	 *
 	 * @param integer $id
 	 * @return User
 	 */
-	public function getUser(int $id)
+	public function getUser($id)
 	{
 		$id = (int) $id;
 		$query = $this->getDb()->prepare('SELECT * FROM `users_listes` WHERE id = :id');
@@ -96,14 +98,26 @@ class User_listeManager
 		$dataUser = $query->fetch(PDO::FETCH_ASSOC);
 		return new User_liste($dataUser);
 	}
-
-
+	/**
+	 * Get an last_name, first_name by id
+	 *
+	 * @return last_name, first_name
+	 */
 	public function update(User_liste $user_liste)
 	{
-		$query = $this->getDb()->prepare('UPDATE users_listes SET last_name = :last_name AND first_name = :first_name WHERE id = :id');
-		$query->bindValue("last_name", $user_liste->getLast_name(), PDO::PARAM_STR);
-		$query->bindValue("first_name", $user_liste->getFirst_name(), PDO::PARAM_STR);
-		$query->bindValue("id", $user_liste->getId(), PDO::PARAM_INT);
+		$query = $this->getDb()->prepare('UPDATE users_listes SET last_name = :last_name, first_name = :first_name WHERE id = :id');
+		$query->bindValue(":last_name", $user_liste->getLast_name(), PDO::PARAM_STR);
+		$query->bindValue(":first_name", $user_liste->getFirst_name(), PDO::PARAM_STR);
+		$query->bindValue(":id", $user_liste->getId(), PDO::PARAM_INT);
+		$query->execute();
+	}
+
+	//function delete from the date base
+
+	public function delete(int $id)
+	{
+		$query = $this->getDb()->prepare('DELETE FROM users_listes WHERE id = :id');
+		$query->bindValue("id", $id, PDO::PARAM_INT);		
 		$query->execute();
 	}
 

@@ -10,11 +10,13 @@ function chargerClasse($classname)
     }
 }
 spl_autoload_register('chargerClasse');
+session_start();
+
 
 // Connexion à la base de données
 $db = Database::DB();
 
-
+//We instantiate our manager
 $manager = new UserManager($db);
 
 $first_name = "";
@@ -26,8 +28,8 @@ if(isset($_POST['submit'])){
     $email = htmlspecialchars($_POST['email']);
     $password= htmlspecialchars($_POST['password']);
     $password_1= htmlspecialchars($_POST['password_1']);
-
-
+    // $count = $manager->get($email);
+    
     if(empty($first_name)){
         array_push($errors, "First_name is required");
     }
@@ -59,7 +61,7 @@ if(isset($_POST['submit'])){
 
         else
         {
-            
+            //We instantiate a $ user object
             $user = new User([
                 'first_name' => $_POST['first_name'],
                 'email' => $_POST['email'],
@@ -70,14 +72,16 @@ if(isset($_POST['submit'])){
  
             
             $manager->add($user);// get the addaccount method form AccountManager.php and adde it in the data base
-            
+            header("location:index.php");
+
         }
 
      
 }
 
+//get all users
  $users = $manager->getUsers();
 
 
-
+//Finally, we include the view
 include "../views/signupView.php";

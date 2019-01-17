@@ -7,10 +7,12 @@ class Book
     protected $id;
     protected $title;
     protected $author;
-    protected $catogry;
+    protected $category;
     protected $date;
     protected $summary;
-    protected $image = "../essets/img/book.jpg";
+    protected $user_id;
+    protected $availability = 1;
+    protected $image;
 
 
 
@@ -34,12 +36,12 @@ class Book
     public function hydrate(array $array)
     {
         foreach ($array as $key => $value) {
-            // On récupère le nom du setter correspondant à l'attribut.
+            //We retrieve the name of the setter corresponding to the attribute.
             $method = 'set'.ucfirst($key);
 
-            // Si le setter correspondant existe.
+            //if le setter correspondant existe.
             if (method_exists($this, $method)) {
-                // On appelle le setter.
+                // we call the setter.
                 $this->$method($value);
             }
         }
@@ -79,6 +81,8 @@ class Book
 
     /**
      * Get the value of title
+     * @return  $title
+
      */ 
     public function getTitle()
     {
@@ -87,6 +91,7 @@ class Book
 
     /**
      * Get the value of author
+     * @return  author
      */ 
     public function getAuthor()
     {
@@ -103,6 +108,8 @@ class Book
 
     /**
      * Get the value of summary
+     * @return  $summary
+
      */ 
     public function getSummary()
     {
@@ -112,7 +119,7 @@ class Book
     /**
      * Set the value of title
      *
-     * @return  self
+     * @return  $title
      */ 
     public function setTitle($title)
     {
@@ -124,7 +131,7 @@ class Book
     /**
      * Set the value of author
      *
-     * @return  self
+     * @return  $author
      */ 
     public function setAuthor($author)
     {
@@ -136,7 +143,7 @@ class Book
     /**
      * Set the value of date
      *
-     * @return  self
+     * @return  $data
      */ 
     public function setDate($date)
     {
@@ -148,7 +155,7 @@ class Book
     /**
      * Set the value of summary
      *
-     * @return  self
+     * @return  $summary
      */ 
     public function setSummary($summary)
     {
@@ -162,26 +169,28 @@ class Book
 
     /**
      * Get the value of catogry
+     * @return  $category
      */ 
-    public function getCatogry()
+    public function getCategory()
     {
-        return $this->catogry;
+        return $this->category;
     }
 
     /**
      * Set the value of catogry
      *
-     * @return  self
+     * @return  $category
      */ 
-    public function setCatogry($catogry)
+    public function setCategory($category)
     {
-        $this->catogry = $catogry;
+        $this->category = $category;
 
         return $this;
     }
 
     /**
      * Get the value of image
+     * @return  $image
      */ 
     public function getImage()
     {
@@ -198,5 +207,68 @@ class Book
         $this->image = $image;
 
         return $this;
+    }
+
+
+   
+
+    /**
+     * Get the value of user_id
+     *   @return  $user_id
+     */ 
+    public function getUser_id()
+    {
+        return $this->user_id;
+    }
+
+    /**
+     * Set the value of user_id
+     *
+     * @return  $user_id
+     */ 
+    public function setUser_id($user_id)
+    {
+        $this->user_id = $user_id;
+
+        return $this;
+    }
+
+    
+    /**
+     * Get the value of availability
+     *  @return $availability
+     */ 
+    public function getAvailability()
+    {
+        return $this->availability;
+    }
+    
+    /**
+     * Set the value of availability
+     *
+     * @return  $availability
+     */ 
+    public function setAvailability($availability)
+    {
+        $this->availability = $availability;
+        
+        return $this;
+    }
+
+    //function for borrow book 
+    public function borrow($user_id){
+        
+        if($this->availability == 1){
+            $this->availability = 0;
+        }
+            return $this->user_id = $user_id;
+    }
+     //function for return  book 
+
+    public function return(){
+        if($this->availability == 0){
+            $this->availability = 1;
+        }
+            return $this->user_id = NULL;
     }
 }

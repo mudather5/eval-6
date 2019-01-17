@@ -2,7 +2,7 @@
 declare(strict_types = 1);
 
 /**
- *  Classe permettant de gérer les opérations en base de données concernant les objets Account
+ *  Class to manage database operations for Account objects
  */
 class BookManager
 {
@@ -48,11 +48,11 @@ class BookManager
 	 */
 	public function add(Book $book)
 	{
-		$query = $this->getDb()->prepare('INSERT INTO books(title, author, date, catogry, summary, image) VALUES (:title, :author, :date, :catogry, :summary, :image)');
+		$query = $this->getDb()->prepare('INSERT INTO books(title, author, date, category, summary, image) VALUES (:title, :author, :date, :category, :summary, :image)');
 		$query->bindValue(":title", $book->getTitle(), PDO::PARAM_STR);
 		$query->bindValue(":author", $book->getAuthor(), PDO::PARAM_STR);
 		$query->bindValue(":date", $book->getDate(), PDO::PARAM_STR);
-		$query->bindValue(":catogry", $book->getCatogry(), PDO::PARAM_STR);
+		$query->bindValue(":category", $book->getCategory(), PDO::PARAM_STR);
 		$query->bindValue(":summary", $book->getSummary(), PDO::PARAM_STR);
 		$query->bindValue(":image", $book->getImage(), PDO::PARAM_STR);
 
@@ -69,13 +69,13 @@ class BookManager
 		$arrayOfBooks = [];
 		$query = $this->getDb()->query('SELECT * FROM `books`');
 
-		// On récupère un tableau contenant plusieurs tableaux associatifs
+		//  We retrieve a table containing several associative arrays
 		$dataBooks = $query->fetchAll(PDO::FETCH_ASSOC);
 
-		// A chaque tour de boucle, on récupère un tableau associatif concernant un seul compte
+		//  At each loop turn, we get an associative array for a single account
 		foreach ($dataBooks as $dataBook) 
 		{
-			// On crée un nouvel objet grâce au tableau associatif, qu'on stocke dans $arrayOfAccounts
+			// We create a new object thanks to the associative array, which is stored in $ arrayOfAccounts
 			$arrayOfBooks[] = new Book($dataBook);
 		}
 		return $arrayOfBooks;
@@ -87,7 +87,7 @@ class BookManager
         $query->bindValue('title', $title, PDO::PARAM_STR);
         $query->execute();
 
-        // If there is an entry with this name, it means that there is
+        //check if this title exist
 
         if ($query->rowCount() > 0)
         {
@@ -104,7 +104,7 @@ class BookManager
 	 * @param integer $id
 	 * @return Book
 	 */
-	public function getBook(int $id)
+	public function getBook($id)
 	{
 		$id = (int) $id;
 		$query = $this->getDb()->prepare('SELECT * FROM `books` WHERE id = :id');
@@ -114,6 +114,38 @@ class BookManager
 		$dataBook = $query->fetch(PDO::FETCH_ASSOC);
 		return new Book($dataBook);
 	}
+
+
+	public function update(Book $book)
+	{
+		$query = $this->getDb()->prepare('UPDATE books SET title = :title, author = :author, date = :date, category = :category, summary = :summary, image = :image  WHERE id = :id');
+		$query->bindValue(":title", $book->getTitle(), PDO::PARAM_STR);
+		$query->bindValue(":author", $book->getAuthor(), PDO::PARAM_STR);
+		$query->bindValue(":date", $book->getDate(), PDO::PARAM_STR);
+		$query->bindValue(":category", $book->getCategory(), PDO::PARAM_STR);
+		$query->bindValue(":summary", $book->getSummary(), PDO::PARAM_STR);
+		$query->bindValue(":image", $book->getImage(), PDO::PARAM_STR);
+		$query->bindValue(":id", $book->getId(), PDO::PARAM_INT);
+		$query->execute();
+	}
+
+	public function edit(Book $book)
+	{
+		$query = $this->getDb()->prepare('UPDATE books SET user_id = :user_id, availibility = :availibility WHERE id = :id');
+		$query->bindValue(":user_id", $book->getUser_id(), PDO::PARAM_INT);
+		$query->bindValue("availibility", $book->getAvailability(), PDO::PARAM_INT);
+		$query->bindValue(":id", $book->getId(), PDO::PARAM_INT);
+
+		$query->execute();
+	}
+
+	public function delete(int $id)
+	{
+		$query = $this->getDb()->prepare('DELETE FROM books WHERE id = :id');
+		$query->bindValue("id", $id, PDO::PARAM_INT);		
+		$query->execute();
+	}
+
 
 	
 }

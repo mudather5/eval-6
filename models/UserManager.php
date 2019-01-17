@@ -2,7 +2,7 @@
 declare(strict_types = 1);
 
 /**
- *  Classe permettant de gérer les opérations en base de données concernant les objets Account
+ *  Class to manage database operations for Account objects
  */
 class UserManager
 {
@@ -23,7 +23,7 @@ class UserManager
 	 * Set the value of $_db
 	 *
 	 * @param PDO $db
-	 * return self
+	 * return $db
 	 */
 	public function setDb(PDO $db) 
 	{
@@ -44,11 +44,10 @@ class UserManager
 	/**
 	 * Add account to the database
 	 *
-	 * @param Account $account
+	 * @param Account $user
 	 */
 	public function add(User $user)
 	{
-		// var_dump($user);die;
 		$query = $this->getDb()->prepare('INSERT INTO users(first_name, email, password, password_1) VALUES (:first_name, :email, :password, :password_1)');
 		$query->bindValue("first_name", $user->getFirst_name(), PDO::PARAM_STR);
 		$query->bindValue("email", $user->getEmail(), PDO::PARAM_STR);
@@ -67,13 +66,13 @@ class UserManager
 		$arrayOfUsers = [];
 		$query = $this->getDb()->query('SELECT * FROM users');
 
-		// On récupère un tableau contenant plusieurs tableaux associatifs
+		// We retrieve a table containing several associative arrays
 		$dataUsers = $query->fetchAll(PDO::FETCH_ASSOC);
 
-		// A chaque tour de boucle, on récupère un tableau associatif concernant un seul compte
+		// At each loop turn, we get an associative array for a single account
 		foreach ($dataUsers as $dataUser) 
 		{
-			// On crée un nouvel objet grâce au tableau associatif, qu'on stocke dans $arrayOfAccounts
+			// We create a new object thanks to the associative array, which is stored in $ arrayOfAccounts
 			$arrayOfUsers[] = new User($dataUser);
 		}
 		return $arrayOfUsers;
@@ -85,14 +84,14 @@ class UserManager
         $query->bindValue('email', $email, PDO::PARAM_STR);
         $query->execute();
 
-        // If there is an entry with this name, it means that there is
+        // If there is an entry with this name, 
 
         if ($query->rowCount() > 0)
         {
             return true;
         }
         
-        // if no  it means that there is not
+        // if not  return false
         return false;
     }
 
@@ -103,7 +102,7 @@ class UserManager
 	 * @param integer $id
 	 * @return Account
 	 */
-	public function getUser(int $id)
+	public function getUser($id)
 	{
 		$id = (int) $id;
 		$query = $this->getDb()->prepare('SELECT * FROM users WHERE id = :id');

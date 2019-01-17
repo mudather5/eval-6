@@ -10,28 +10,55 @@ function chargerClasse($classname)
     }
 }
 spl_autoload_register('chargerClasse');
+session_start();
 
-// Connexion à la base de données
+
+
+// Connection to the database
 $db = Database::DB();
 
+//We instantiate our manager
+$manager = new AdminManager($db);  
+$errors = array();
 
-// $manager = new UserManager($db);
-$funObj = new SigninManager($db);  
-
-
+if(isset($_SESSION['email'])){
+    header('Location: index.php');
+}
+//If the field is full, and is not empty
 if (isset($_POST['login'])) {
     $email = $_POST['email'];
     $password = $_POST['password'];
-    $signin = $funObj->Signin($email, $password);
-    if ($signin) {
-        // Registration Success
-        header("location:home.php");
-    } else {
-        // Registration Failed
-        echo "<script>alert('Emailid / Password Not Match')</script>";
+    $count = $manager->getAdmin($email);
+    // Sign in Success
+    
+    if ($count) {
+        if ($count->getPassword() == $password) {
+     //We instantiate a $admin object
+            $admin = new Admin([
+            'email' => $_POST['email'],
+            'password' => $_POST['password']
+            ]);
+
+            $_SESSION['email'] = $email;
+            $_SESSION['success'] = "you have just login";
+            header('location: home.php');                
+        
+        } 
+        elseif (empty($_POST['email'])){
+            array_push($errors, "Email is require!");
+        }
+        elseif (empty($_POST['password'])){
+            array_push($errors, "password is require!");
+        }else{
+            array_push($errors, "Email or Password is Invalide!");
+
+        }
     }
+
 }
+//get all admins
+ $admins = $manager->getAdmins();
 
-
+//Finally, we include the view
 include "../views/indexView.php";
 

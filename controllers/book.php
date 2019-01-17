@@ -1,5 +1,5 @@
 <?php
-// On enregistre notre autoload.
+// we registre our autoload.
 function chargerClasse($classname)
 {
     if(file_exists('../models/'. $classname.'.php')){
@@ -10,43 +10,50 @@ function chargerClasse($classname)
     }
 }
 spl_autoload_register('chargerClasse');
+session_start();
 
-// Connexion à la base de données
+if(isset($_SESSION['email'])) {
+
+} else {
+	header('location: index.php');
+}
+
+// Connection to the database
 $db = Database::DB();
 
+//We instantiate our manager
 $manager = new BookManager($db);
+
+//if the book creation form is submitted
 if (isset($_POST['add'])) {
-    $title = htmlspecialchars($_POST['title']);
-    $author = htmlspecialchars($_POST['author']);
-    $date= htmlspecialchars($_POST['date']);
-    $catogry= htmlspecialchars($_POST['catogry']);
-    $summary= htmlspecialchars($_POST['summary']);
-
+    
     if($manager->checkIfExist($_POST['title']) === true)
-
-        {
+    
+    {
+        var_dump($_POST['title']);
             
         array_push($errors, "The title is already exist !");
 
         }else{
-
+            //We instantiate a $ book object
             $book = new Book([
                 'title' => $_POST['title'],
                 'author' => $_POST['author'],
                 'date' => $_POST['date'],
-                'catogry' => $_POST['catogry'],
+                'category' => $_POST['category'],
                 'summary' => $_POST['summary'],
-                'image' => '../assets/img/book.jpg'
+                'image' => $_POST['image']
             ]);
-            
-            $manager->add($book);// get the addaccount method form AccountManager.php and adde it in the data base    
-            
+            $manager->add($book);// get the addbook method form BooksManager.php and adde it in the data base    
+             header('Location: home.php');
+
         }
 }
 
-
-
+//We get all the books in the BDD books is an array containing all books objects in DB
 $books = $manager->getBooks();
+
+//Finally, we include the view
 
 include "../views/bookView.php";
 

@@ -27,13 +27,48 @@
     margin-top: 10%;
 }
 
+.red:hover{ 
+    background-color:black;
+    color:rgb(77, 14, 14);
+    }
+.update button{
+    margin: 3px;
+}
+
+.mfp-no-margins img.mfp-img {
+	padding: 0;
+}
+/* position of shadow behind the image */
+.mfp-no-margins .mfp-figure:after {
+	top: 0;
+	bottom: 0;
+}
+/* padding for main container */
+.mfp-no-margins .mfp-container {
+	padding: 0;
+}
+
+
+
+.borrow{
+    margin-left: 20px;
+}
+.borrow button{
+    margin-top: 10px;
+    margin-left: 8px;
+
+}
+
 .btn{
-    margin-left: 15px;
+    margin-left: 0px;
+
 }
 
 .user{
     margin-top: 5%;
 }
+
+
 
 .card{
 	border: 2px solid salmon;
@@ -42,7 +77,7 @@
 }
 
 .card-container{
-	max-width: 270px;
+	max-width: 400px;
     margin: auto;
 }
 
@@ -55,16 +90,18 @@
 }
 
 
-/* img{
-    margin-top: 10px;
-} */
+label{
+    color: gray;
+    font-size: 20px;
+} 
 
-h5{
-    display: inline-block;
-}
 
-.red{
-    background-image: url(../img/Non-Fiction-4.jpg);
+
+
+
+footer{
+
+    margin-bottom: auto;
 }
 
 @media only screen and (max-width: 1000px) {
@@ -73,10 +110,29 @@ h5{
         display: none;
     }
 
-.button{
-    text-align: center;
+    .button{
+        text-align: center;
+    }
+
+    table{
+        max-width: 500px;
+    }
+    
 }
+
+@media only screen and (max-width: 320px) {
+
+ 
+    table{
+    max-width: 200px;
+    }
+    .book{
+
+        margin-left: 40px;
+    }
+    
 }
+
 
 
 

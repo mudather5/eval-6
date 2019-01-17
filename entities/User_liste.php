@@ -4,7 +4,8 @@ class User_liste{
                 $last_name,
                 $first_name,
                 $code = "cj9dma6b)",
-                $nb_book;
+                $nb_book,
+                $lists_books;
 
 
     public function __construct(array $array)
@@ -17,14 +18,14 @@ class User_liste{
 	{
 		foreach ($array as $key => $value)
 		{
-			// On récupère le nom du setter correspondant à l'attribut.
+			///We retrieve the name of the setter corresponding to the attribute.
 			$method = 'set'.ucfirst($key);
 
-			// Si le setter correspondant existe.
+			//if the setter correspondant existe.
 			if (method_exists($this, $method))
 			{
                 $this->$method($value);
-				// On appelle le setter.
+				// we call the setter.
                 
 			}
 		}
@@ -36,6 +37,7 @@ class User_liste{
 
       /**
        * Get the value of id
+       * @return  $id
        */ 
       public function getId()
       {
@@ -45,7 +47,7 @@ class User_liste{
       /**
        * Set the value of id
        *
-       * @return  self
+       * @return  $id
        */ 
       public function setId($id)
       {
@@ -56,16 +58,17 @@ class User_liste{
 
                 /**
                  * Get the value of last_name
+                  * @return  $Last_name
                  */ 
                 public function getLast_name()
                 {
-                                return $this->last_name;
+                  return $this->last_name;
                 }
 
                 /**
                  * Set the value of last_name
                  *
-                 * @return  self
+                 * @return  $last_name
                  */ 
                 public function setLast_name($last_name)
                 {
@@ -76,6 +79,8 @@ class User_liste{
 
                 /**
                  * Get the value of first_name
+                   * @return  $last_name
+
                  */ 
                 public function getFirst_name()
                 {
@@ -85,7 +90,7 @@ class User_liste{
                 /**
                  * Set the value of first_name
                  *
-                 * @return  self
+                 * @return  $first_name
                  */ 
                 public function setFirst_name(string $first_name)
                 {
@@ -96,6 +101,7 @@ class User_liste{
 
                 /**
                  * Get the value of idinify
+                 * @return  $code
                  */ 
                 public function getCode()
                 {
@@ -105,7 +111,7 @@ class User_liste{
                 /**
                  * Set the value of idinify
                  *
-                 * @return  self
+                 * @return  $code
                  */ 
                 public function setCode($code)
                 {
@@ -116,6 +122,7 @@ class User_liste{
 
                 /**
                  * Get the value of nb_book
+                 * @return  $nb_book
                  */ 
                 public function getNb_book()
                 {
@@ -125,13 +132,34 @@ class User_liste{
                 /**
                  * Set the value of nb_book
                  *
-                 * @return  self
+                 * @return  $nb_book
                  */ 
                 public function setNb_book($nb_book)
                 {
                                 $this->nb_book = $nb_book;
 
                                 return $this;
+                }
+
+                /**
+                 * Get the value of lists_books
+                 * @return  $lists_books
+                 */ 
+                public function getLists_books()
+                {
+                                return $this->lists_books;
+                }
+
+                /**
+                 * Set the value of lists_books
+                 *
+                 * @return  $lists_books
+                 */ 
+            public function setLists_books($lists_books)
+                {
+                  $this->lists_books = $lists_books;
+
+                  return $this;
                 }
 }
 
